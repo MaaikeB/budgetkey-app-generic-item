@@ -112,17 +112,22 @@ export class ItemQuestionsComponent implements OnDestroy {
     this.preparedQuestions = this.store.preparedQuestions;
     this.currentQuestion = this.store.currentQuestion;
     this.redashUrl = this.itemService.getRedashUrl(this.store.dataQuery);
+
+    // Create a 'meaningful' filename, so that the file name is not the same for every downloaded file
+    var fileName = this.store.item.page_title + '_' + this.store.store.item.max_year + '_' + this.store.store.item.min_year;
     this.downloadUrl =
       this.itemService.getDownloadUrl(
           this.store.dataQuery,
           'csv',
-          this.store.currentQuestion.originalHeaders
+          this.store.currentQuestion.originalHeaders,
+          fileName
       );
     this.downloadUrlXlsx =
       this.itemService.getDownloadUrl(
           this.store.dataQuery,
           'xlsx',
-          this.store.currentQuestion.originalHeaders
+          this.store.currentQuestion.originalHeaders,
+          fileName
       );
     this.isSearching = true;
   }
